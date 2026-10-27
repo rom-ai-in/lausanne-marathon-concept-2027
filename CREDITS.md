@@ -19,3 +19,6 @@ Tuiles : CARTO / OpenStreetMap (attribution dans la carte Leaflet).
 
 ## Sponsors
 Logos issus de la page Sponsors du site officiel.
+
+## Chiffres page Devenir partenaire
+Chiffres publics (édition 2026) : ATHLE.ch, Swiss Running, Lausanne Tourisme, Wikipedia (records), page partenaires (11 communes). Détail des sources dans `_internal/devenir-sources.md` (non publié). Aucun lien « Source » ni CTA site officiel sur les pages.

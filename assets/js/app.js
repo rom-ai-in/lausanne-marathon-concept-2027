@@ -77,3 +77,51 @@
     document.body.appendChild(s);
   })();
 })();
+
+/* partner pitch + reveal */
+(function(){
+  function animateCount(el){
+    const target = parseInt(el.getAttribute('data-count')||'0',10);
+    if(!target || el.dataset.done) return;
+    el.dataset.done='1';
+    const num = el.querySelector('.kpi-num');
+    if(!num) return;
+    const final = num.textContent;
+    const prefers = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(prefers){ return; }
+    const start = performance.now();
+    const dur = 900;
+    const step = (now)=>{
+      const p = Math.min(1,(now-start)/dur);
+      const eased = 1-Math.pow(1-p,3);
+      const v = Math.round(target*eased);
+      num.textContent = v.toLocaleString(document.documentElement.lang||'fr-CH');
+      if(p<1) requestAnimationFrame(step); else num.textContent = final;
+    };
+    requestAnimationFrame(step);
+  }
+  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.classList.contains('kpi')) animateCount(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.2}) : null;
+  document.querySelectorAll('.partner-pitch section, .kpi, .card, .vis-item, .proc-step').forEach(el=>{
+    el.classList.add('reveal');
+    if(io) io.observe(el); else el.classList.add('in');
+  });
+  document.querySelectorAll('form[data-partner-demo]').forEach(form=>{
+    form.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      const ok = form.querySelector('.form-ok');
+      if(ok){ ok.hidden=false; }
+      form.querySelectorAll('input,textarea,select,button[type=submit]').forEach(x=>{
+        if(x.type==='submit') x.disabled=true; 
+      });
+    });
+  });
+})();
+
