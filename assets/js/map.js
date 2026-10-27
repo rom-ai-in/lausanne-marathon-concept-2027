@@ -11,6 +11,7 @@
 
   let layer=null, markers=[], cursor=null, latlngs=[], profile=[], currentKey='semi';
   let elevDefaults={km:'', alt:''};
+  let officialMeta={km:null, dplus:null, dminus:null};
   let lastBounds=null;
 
   function aspectAwareHeight(bounds){
@@ -111,7 +112,7 @@
     } else cursor.setLatLng(ll);
     if(profile[i]){
       if(elevKm) elevKm.textContent=`Km ${profile[i].d.toFixed(1).replace('.',',')}`;
-      if(elevAlt) elevAlt.textContent=`${Math.round(profile[i].e)} m`;
+      if(elevAlt) elevAlt.textContent=`~${Math.round(profile[i].e)} m · indicatif`;
     }
   }
   function restoreElevDefaults(){
@@ -126,9 +127,19 @@
     const ds=prof.map(p=>p.d), es=prof.map(p=>p.e);
     const minE=Math.min(...es), maxE=Math.max(...es);
     const minD=Math.min(...ds), maxD=Math.max(...ds)||1;
-    // Default useful labels: total distance + altitude range
-    elevDefaults.km=`${maxD.toFixed(1).replace('.',',')} km`;
-    elevDefaults.alt=`${Math.round(minE)}–${Math.round(maxE)} m`;
+    // Header: always official distance; D+/D− officiels (profil schématique indicatif)
+    const okm = officialMeta.km != null ? officialMeta.km : maxD;
+    const kmLbl = (Math.abs(okm-21.0975)<1e-6) ? '21,0975 km' : (String(okm).replace('.',',')+' km');
+    elevDefaults.km = kmLbl;
+    if (officialMeta.dplus != null) {
+      if (officialMeta.dplus === 0 && officialMeta.dminus === 0) {
+        elevDefaults.alt = 'Profil plat · indicatif';
+      } else {
+        elevDefaults.alt = `D+ ${officialMeta.dplus} / D− ${officialMeta.dminus} m · indicatif`;
+      }
+    } else {
+      elevDefaults.alt = 'Profil indicatif';
+    }
     restoreElevDefaults();
     const xy=prof.map(p=>{
       const x=pad+(p.d-minD)/(maxD-minD)*(w-pad*2);
@@ -210,11 +221,12 @@
       });
 
       if(labelEl) labelEl.textContent=c.name;
-      if(noteEl) noteEl.textContent=data.note;
+      if(noteEl && !noteEl.dataset.locked) noteEl.textContent=data.note;
       if(metaDist) metaDist.textContent=String(c.official_km).replace('.',',')+' km';
       if(metaDeniv && c.official_deniv) metaDeniv.textContent=`${c.official_deniv.dplus} / ${c.official_deniv.dminus} m`;
       if(metaStart) metaStart.textContent=window.LM_STARTS?.[key]||'—';
       if(gpxLink){ gpxLink.href=`../data/gpx/${key}-indicatif.gpx`; gpxLink.setAttribute('download',`${key}-indicatif.gpx`); }
+      officialMeta={km:c.official_km, dplus:c.official_deniv?.dplus, dminus:c.official_deniv?.dminus};
       drawProfile(c.profile, colors[key]||'#1657d9');
       if(aidEl){
         aidEl.innerHTML=(c.aid||[]).map(a=>`<div class="aid"><div class="km">Km ${a.km}</div><div><strong>${a.name}</strong><div style="color:var(--muted);font-size:13px">${a.offer}</div></div></div>`).join('');

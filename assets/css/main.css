@@ -275,7 +275,7 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
   .map-shell.fullscreen-mobile{border-radius:0;margin-left:-20px;margin-right:-20px;border-left:0;border-right:0}
   .map-shell.fullscreen-mobile #route-map{height:70vh;min-height:420px}
 }
-.elev-wrap{background:linear-gradient(180deg,#0a1f3a,#132f52);color:#fff;padding:12px 14px 16px;position:relative}
+.elev-wrap{background:linear-gradient(180deg,#0a1f3a,#132f52);color:#fff;padding:10px 14px 10px;position:relative}
 .elev-meta{display:flex;justify-content:space-between;gap:10px;font-size:12px;opacity:.85;margin-bottom:6px;font-weight:650}
 .elev-chart{height:120px;padding:0;background:transparent;touch-action:none;cursor:crosshair}
 .elev-chart svg{width:100%;height:100px;display:block}
@@ -648,7 +648,7 @@ body.page-parcours .wrap{padding-bottom:calc(72px + env(safe-area-inset-bottom))
   body.page-parcours .map-shell.fullscreen-mobile #route-map{
     height:min(42vh,340px);min-height:280px;max-height:340px;
   }
-  body.page-parcours .elev-wrap{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  body.page-parcours .elev-wrap{padding-bottom:12px}
 }
 /* Presenting: fill column, no dead right void */
 .tier-presenting .presenting-grid{
@@ -682,3 +682,8 @@ body.page-parcours #route-map{height:260px; transition:height .15s ease}
     height:260px; min-height:210px; max-height:320px;
   }
 }
+
+/* elev-chart height compact — no dark void */
+.elev-chart{height:88px;margin:0}
+.elev-wrap .elev-meta{margin-bottom:4px}
+body.page-parcours .map-shell .elev-wrap{border-radius:0 0 18px 18px}
