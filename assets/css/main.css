@@ -190,7 +190,7 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
 .presented-by{display:none;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:linear-gradient(135deg,#eef5ff,#fff);border:1px solid #d7e6ff;text-decoration:none;color:var(--ink2)}
 .presented-by span{font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .presented-by img{height:28px;width:auto;object-fit:contain}
-@media(min-width:1100px){.presented-by{display:inline-flex}}
+@media(min-width:1100px){.presented-by{display:none}} /* exclusivity via 1200 rule */
 .nav-desk .mega{display:none;position:absolute;top:100%;left:50%;transform:translateX(-40%);width:min(920px,92vw);background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--glow);padding:18px;z-index:80;grid-template-columns:1.2fr 1fr 1fr;gap:14px}
 .nav-desk .item:hover .mega, .nav-desk .item:focus-within .mega{display:grid}
 .nav-desk .mega .mega-vis{border-radius:16px;overflow:hidden;position:relative;min-height:180px;background:var(--navy)}
@@ -345,9 +345,9 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
 }
 .presented-bar a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink2)}
 .presented-bar img{height:22px;width:auto;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px}
-@media(min-width:1180px){
-  .presented-bar{display:none}
-  .presented-by{display:inline-flex}
+@media(min-width:1200px){
+  .presented-bar{display:none !important}
+  .presented-by{display:inline-flex !important}
 }
 
 /* Responsive CTA labels: short on narrow, full on wide */
@@ -370,7 +370,7 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
 .hero.map-hero .presented-hero{margin-bottom:8px}
 .wrap.tight-top{padding-top:12px}
 .map-shell.section{margin-top:0}
-.map-toolbar{position:sticky;top:var(--header-h);z-index:5;padding:10px 12px}
+.map-toolbar{position:relative;z-index:2;padding:10px 12px}
 .map-toolbar button{white-space:nowrap}
 
 /* Tier titles never under sticky elements */
@@ -487,3 +487,187 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
 .bottom a{min-width:0;flex:1 1 0}
 .eyebrow,.hero .presented-hero,.countdown > div,.btn-ghost{border-radius:999px}
 .countdown > div{border-radius:16px}
+
+
+/* ===== Visual QA 2 ===== */
+.disclaimer{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:11px;padding:5px 10px}
+.disclaimer .d-full{display:none}
+.disclaimer .d-short{display:inline}
+@media(min-width:720px){
+  .disclaimer{white-space:normal;overflow:visible;text-overflow:clip}
+  .disclaimer .d-full{display:inline}
+  .disclaimer .d-short{display:none}
+}
+.presented-hero{display:none !important} /* single occurrence: bar/header only */
+.search-btn{width:44px;height:44px;font-size:20px;line-height:1;border-radius:12px}
+.menu-toggle{width:44px;height:44px}
+.lang summary{min-height:44px;display:inline-flex;align-items:center}
+
+/* Home hero fits above bottom bar on 390×844 */
+@media(max-width:719px){
+  .hero:not(.map-hero):not(.compact){min-height:0;max-height:none}
+  .hero:not(.map-hero) .hero-inner{
+    padding:18px 16px calc(72px + env(safe-area-inset-bottom));
+  }
+  .hero:not(.map-hero) h1{font-size:clamp(26px,7vw,34px);margin-bottom:8px;max-width:18ch}
+  .hero:not(.map-hero) .lead{font-size:14px;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .hero:not(.map-hero) .countdown{margin:10px 0 12px;gap:6px;grid-template-columns:repeat(4,minmax(56px,1fr))}
+  .hero:not(.map-hero) .countdown div{padding:8px 4px;border-radius:12px}
+  .hero:not(.map-hero) .countdown strong{font-size:18px}
+  .hero:not(.map-hero) .countdown span{font-size:9px}
+  .hero:not(.map-hero) .hero-actions{gap:8px;margin-bottom:8px}
+  .hero:not(.map-hero) .hero-actions .btn{padding:11px 14px;font-size:13px}
+  .hero:not(.map-hero) .hero-actions .btn-ghost:last-of-type{display:none} /* keep primary + Voir parcours */
+  .hero.map-hero{min-height:0}
+  .hero.map-hero .hero-inner{padding:12px 16px 10px}
+  .wrap.tight-top{padding-top:0 !important}
+  .course-picker{margin:0 0 8px;padding:0 0 2px;position:relative;z-index:6}
+  .map-shell.fullscreen-mobile{margin-left:0;margin-right:0;border-radius:18px;overflow:hidden}
+  .map-shell.fullscreen-mobile #route-map{
+    height:min(48vh,380px);min-height:280px;max-height:380px;
+    /* room for leaflet + bottom nav */
+    margin-bottom:0;
+  }
+  .leaflet-bottom{bottom:8px !important}
+  .leaflet-control-zoom{margin-bottom:8px !important}
+  body.page-parcours .bottom{/* map page: ensure zoom above bar via map padding in JS */}
+}
+
+.course-picker{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:4px 0 10px;position:relative;z-index:6;background:var(--bg);
+}
+.course-picker button{
+  border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:10px 14px;font-weight:750;font-size:13px;cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(11,28,51,.06);
+}
+.course-picker button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.course-picker .course-label{margin-left:auto;font-weight:700;font-size:13px;color:var(--muted)}
+@media(max-width:719px){.course-picker .course-label{display:none}
+  .course-picker{padding:6px 0 8px;gap:6px}
+  .course-picker button{padding:9px 12px;font-size:12.5px}
+  .map-shell.fullscreen-mobile #route-map{height:min(46vh,360px);min-height:300px;max-height:360px}
+  .map-shell.section{margin-top:0;margin-bottom:8px}
+}
+.map-shell .map-toolbar{display:none} /* moved outside */
+
+/* Presenting sponsor balanced layout */
+.tier-presenting .presenting-grid{
+  display:grid;gap:18px;align-items:center;
+}
+@media(min-width:720px){
+  .tier-presenting .presenting-grid{grid-template-columns:minmax(200px,280px) 1fr}
+}
+.tier-presenting .presenting-copy{color:rgba(255,255,255,.92);font-size:15px;line-height:1.55;margin:0}
+.tier-presenting .presenting-copy a{color:#fff;font-weight:750;text-decoration:underline}
+.tier-presenting .sponsor-card{min-height:140px}
+
+
+/* ===== Visual QA 2 final exclusivity ===== */
+.presented-hero{display:none !important}
+.presented-by{display:none !important}
+.presented-bar{display:flex !important}
+@media(min-width:1200px){
+  .presented-bar{display:none !important}
+  .presented-by{display:inline-flex !important}
+}
+.search-btn{
+  width:44px !important;height:44px !important;min-width:44px;
+  font-size:20px !important;line-height:1;display:inline-flex;
+  align-items:center;justify-content:center;padding:0;
+}
+.menu-toggle{width:44px;height:44px;align-items:center;justify-content:center}
+body.page-parcours .wrap{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+@media(min-width:720px){
+  body.page-parcours .wrap{padding-bottom:60px}
+}
+.leaflet-control-attribution{max-width:70%;font-size:10px}
+@media(max-width:719px){
+  .leaflet-top.leaflet-left{top:6px;left:6px}
+  .leaflet-bottom.leaflet-right{bottom:6px;right:6px}
+}
+
+.search-btn{
+  position:relative;font-size:0 !important;
+  color:var(--ink) !important;
+  width:44px !important;height:44px !important;
+  display:inline-flex !important;align-items:center;justify-content:center;
+}
+.search-btn .ico-search{display:block;width:22px;height:22px;flex:0 0 auto}
+
+.tier-presenting .presenting-grid{
+  display:grid;gap:22px;align-items:center;
+  grid-template-columns:1fr;
+  width:100%;
+}
+@media(min-width:720px){
+  .tier-presenting .presenting-grid{
+    grid-template-columns:minmax(220px,300px) minmax(280px,1fr);
+    gap:28px 36px;
+  }
+}
+.tier-presenting .presenting-copy{
+  color:rgba(255,255,255,.95);font-size:16px;line-height:1.55;margin:0;
+  max-width:42ch;
+}
+.tier-presenting .presenting-meta{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;
+}
+.tier-presenting .presenting-meta span{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700;color:#fff;
+}
+.tier-presenting .sponsor-card{
+  background:#fff;border-radius:16px;padding:22px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;min-height:160px;text-decoration:none;color:var(--ink);
+}
+.tier-presenting .sponsor-card img{max-height:72px;width:auto;object-fit:contain}
+.tier-presenting .sponsor-card .name{margin-top:10px;font-weight:750;font-size:14px}
+.tier-presenting{padding:22px 22px 24px}
+@media(min-width:720px){
+  .tier-presenting{padding:28px 32px}
+}
+
+/* menu-toggle desktop hide harden */
+@media(min-width:1200px){
+  .menu-toggle{display:none !important}
+  .nav-desk{display:flex !important}
+}
+
+/* Parcours mobile density */
+@media(max-width:719px){
+  body.page-parcours .breadcrumb{display:none}
+  body.page-parcours .hero.map-hero{min-height:0}
+  body.page-parcours .hero.map-hero .hero-inner{padding:10px 16px 8px}
+  body.page-parcours .hero.map-hero h1{font-size:28px;margin:4px 0}
+  body.page-parcours .hero.map-hero .eyebrow{margin-bottom:4px}
+  body.page-parcours .hero.map-hero .credit{display:none}
+  body.page-parcours .wrap.tight-top{padding-top:4px !important}
+  body.page-parcours .map-shell.fullscreen-mobile #route-map{
+    height:min(42vh,340px);min-height:280px;max-height:340px;
+  }
+  body.page-parcours .elev-wrap{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+}
+/* Presenting: fill column, no dead right void */
+.tier-presenting .presenting-grid{
+  display:flex !important; flex-wrap:wrap; align-items:center; gap:28px;
+}
+.tier-presenting .presenting-grid > .sponsor-card{flex:0 0 auto; width:min(280px,100%); min-height:150px}
+.tier-presenting .presenting-grid > .presenting-copy,
+.tier-presenting .presenting-grid > p.presenting-copy{display:none} /* restructure via wrap */
+.tier-presenting .presenting-aside{
+  flex:1 1 260px; min-width:min(100%,260px); max-width:560px;
+  display:flex; flex-direction:column; justify-content:center; gap:12px;
+}
+.tier-presenting .presenting-aside .presenting-copy{display:block; max-width:none; font-size:16.5px}
+.search-btn .ico-search{width:26px !important;height:26px !important}
+
+/* map-shell gap kill */
+@media(max-width:719px){
+  body.page-parcours .map-shell{margin-top:0 !important; border-top:0}
+  body.page-parcours .course-picker{margin:0; padding:8px 0 6px; background:#fff}
+  body.page-parcours .map-shell.fullscreen-mobile{margin-left:0;margin-right:0}
+  body.page-parcours .section.map-stage{margin-top:0; margin-bottom:0}
+}

@@ -14,9 +14,9 @@
 <link rel="stylesheet" href="../assets/css/main.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
-<body>
+<body class="page-parcours">
 <div class="site">
-<div class="disclaimer">Unofficial concept — exploratory volunteer mockup</div>
+<div class="disclaimer"><span class="d-short">Unofficial concept · volunteer mockup</span><span class="d-full">Unofficial concept — exploratory mockup prepared on a volunteer basis</span></div>
 <header class="header"><div class="header-inner">
   <a class="logo" href="index.html" aria-label="Lausanne Marathon"><img src="../img/logo/logo-officiel.jpg" alt="Lausanne Marathon" width="250" height="135"></a>
   <a class="presented-by" href="https://www.groupemutuel.ch/" target="_blank" rel="noopener" title="Groupe Mutuel">
@@ -111,7 +111,7 @@
     </div>
   </nav>
   <div class="header-actions">
-    <button class="search-btn" id="searchOpen" type="button" aria-label="Search">&#8981;</button>
+    <button class="search-btn" id="searchOpen" type="button" aria-label="Search"><svg class="ico-search" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5L21 21" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
     <details class="lang"><summary>EN</summary><div class="lang-menu"><a href="../fr/parcours.html">FR</a>
 <a href="../de/parcours.html">DE</a>
 <a href="../en/parcours.html" aria-current="true">EN</a>
@@ -169,19 +169,19 @@
 <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span>›</span><strong>Course</strong></nav>
 
 <section class="hero compact map-hero"><img class="bg" src="../img/photos/lm-09-lg.jpg" alt=""><div class="veil"></div>
-<div class="hero-inner"><a class="presented-hero" href="https://www.groupemutuel.ch/" target="_blank" rel="noopener"><span>Presented by</span><img src="../img/sponsors/sponsors_groupemutuel.png" alt="Groupe Mutuel"></a>
+<div class="hero-inner">
 <div class="eyebrow">Indicative route</div><h1>Course maps</h1>
 <p class="credit">Photo : Lausanne Marathon</p></div></section>
 <div class="wrap tight-top">
-  <div class="map-shell fullscreen-mobile section map-stage">
-    <div class="map-toolbar">
+  <div class="course-picker" role="tablist" aria-label="Course">
       <button type="button" class="active" data-course="semi">Half marathon</button>
       <button type="button" data-course="marathon">Marathon</button>
       <button type="button" data-course="dix">10 km</button>
-      <span style="margin-left:auto;font-weight:700" id="map-course-label"></span>
+      <span class="course-label" id="map-course-label"></span>
     </div>
+  <div class="map-shell fullscreen-mobile section map-stage">
     <div id="route-map"></div>
-    <div class="elev-wrap">
+<div class="elev-wrap">
       <div class="elev-meta"><span id="elev-km">Km -</span><span id="elev-alt">- m</span></div>
       <div class="elev-chart" aria-label="Elevation"><svg id="elev-svg" viewBox="0 0 640 100" preserveAspectRatio="none"></svg><div class="elev-tip" id="elev-tip"></div></div>
     </div>

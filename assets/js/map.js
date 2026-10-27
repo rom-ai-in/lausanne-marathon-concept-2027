@@ -15,27 +15,18 @@
       map.invalidateSize({animate:false});
       const size=map.getSize();
       if(size.x < 40 || size.y < 40) return;
-      const tall = size.y > size.x * 0.85;
-      // Asymmetric padding: extra bottom space biases the route upward so the lake
-      // stays visible and Epalinges/Savigny hinterland is cropped on tall phones.
+      const hPad = Math.max(36, Math.round(size.x * 0.12));
+      const vPad = Math.max(28, Math.round(size.y * 0.10));
       map.fitBounds(bounds, {
-        paddingTopLeft: L.point(tall ? 14 : 36, tall ? 10 : 32),
-        paddingBottomRight: L.point(tall ? 14 : 36, tall ? Math.round(size.y * 0.22) : 32),
-        maxZoom: 14,
+        paddingTopLeft: L.point(hPad, vPad),
+        paddingBottomRight: L.point(hPad, vPad),
+        maxZoom: size.x < 720 ? 12 : 13,
         animate: false
       });
-      // Tall phones: keep route dominant; fractional zoom OK in Leaflet
-      if(tall){
-        const minZ = (currentKey==='marathon') ? 11.35 : 12;
-        if(map.getZoom() < minZ){
-          const c=bounds.getCenter();
-          map.setView([c.lat - 0.003, c.lng], minZ, {animate:false});
-        }
-      }
     };
     doFit();
-    requestAnimationFrame(doFit);
-    setTimeout(doFit, 180);
+    requestAnimationFrame(()=>requestAnimationFrame(doFit));
+    setTimeout(doFit, 200);
     setTimeout(doFit, 550);
   }
   let layer=null, markers=[], cursor=null, latlngs=[], profile=[], currentKey='semi';
@@ -43,6 +34,9 @@
   window.addEventListener('resize', ()=>{
     if(layer) fitRoute(layer.getBounds());
   });
+  if (window.ResizeObserver){
+    new ResizeObserver(()=>{ if(layer) fitRoute(layer.getBounds()); }).observe(el);
+  }
   const colors={semi:'#1657d9',marathon:'#ff5a1f',dix:'#0f9d58'};
   const labelEl=document.getElementById('map-course-label');
   const noteEl=document.getElementById('map-note');
@@ -135,7 +129,7 @@
       markers.forEach(m=>map.removeLayer(m)); markers=[];
       if(cursor){map.removeLayer(cursor);cursor=null}
       layer=L.geoJSON(c.geojson,{style:{color:colors[key]||'#1657d9',weight:5,opacity:.92}}).addTo(map);
-      fitRoute(layer.getBounds());
+      fitRoute(layer.getBounds().pad(0.08));
       latlngs=c.geojson.geometry.coordinates.map(([lon,lat])=>[lat,lon]);
 
       // km markers every 5km along profile
@@ -176,6 +170,11 @@
       if(aidEl){
         aidEl.innerHTML=(c.aid||[]).map(a=>`<div class="aid"><div class="km">Km ${a.km}</div><div><strong>${a.name}</strong><div style="color:var(--muted);font-size:13px">${a.offer}</div></div></div>`).join('');
       }
+      // Refit to include polyline + start/finish (+ markers) with padding
+      try{
+        const group=L.featureGroup([layer, ...markers].filter(Boolean));
+        if(group.getLayers().length) fitRoute(group.getBounds().pad(0.1));
+      }catch(e){}
       const places=document.getElementById('place-rail');
       if(places){
         const photos={
