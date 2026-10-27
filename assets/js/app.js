@@ -68,4 +68,12 @@
   document.addEventListener('keydown',e=>{
     if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openSearch?.click()}
   });
+  // WhatsApp assistant demo (injects sticky FAB + sheet)
+  (function loadWa(){
+    if(document.querySelector('script[data-wa-demo]')) return;
+    const s=document.createElement('script');
+    s.src='../assets/js/whatsapp-demo.js';
+    s.setAttribute('data-wa-demo','1');
+    document.body.appendChild(s);
+  })();
 })();
