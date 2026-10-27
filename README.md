@@ -1,4 +1,6 @@
-# Concept exploratoire (présentation privée)
+# Lausanne Marathon — concept exploratoire 2027
 
-Maquette HTML non officielle, non indexée.
-Sans affiliation avec l’organisation du Lausanne Marathon.
+Maquette HTML/CSS/JS statique, non officielle, préparée à titre bénévole.
+Langues: FR (défaut), DE, EN, IT.
+Anti-indexation: meta robots + robots.txt Disallow.
+Tracés: indicatifs (OSM/OSRM) faute de GPX officiel.

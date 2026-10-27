@@ -1,0 +1,51 @@
+(function(){
+  const drawer=document.getElementById('drawer');
+  const openBtn=document.getElementById('menuOpen');
+  const closeBtn=document.getElementById('menuClose');
+  function open(){drawer?.classList.add('open');document.body.style.overflow='hidden';openBtn?.setAttribute('aria-expanded','true')}
+  function close(){drawer?.classList.remove('open');document.body.style.overflow='';openBtn?.setAttribute('aria-expanded','false')}
+  openBtn?.addEventListener('click',open);
+  closeBtn?.addEventListener('click',close);
+  drawer?.addEventListener('click',e=>{if(e.target===drawer) close()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape') close()});
+
+  const cd=document.getElementById('countdown');
+  if(cd){
+    const target=new Date('2027-10-24T08:40:00+02:00').getTime();
+    const tick=()=>{
+      let d=Math.max(0,target-Date.now());
+      const days=Math.floor(d/86400000); d-=days*86400000;
+      const h=Math.floor(d/3600000); d-=h*3600000;
+      const m=Math.floor(d/60000); d-=m*60000;
+      const s=Math.floor(d/1000);
+      const vals=[days,h,m,s];
+      cd.querySelectorAll('[data-n]').forEach((el,i)=>{el.textContent=String(vals[i]).padStart(2,'0')});
+    };
+    tick(); setInterval(tick,1000);
+  }
+
+  const ANSWERS=window.LM_ANSWERS||{};
+  window.showAnswer=function(key){
+    const box=document.getElementById('ask-answer'); const item=ANSWERS[key]; if(!box||!item) return;
+    box.classList.add('show');
+    box.innerHTML=`<div style="opacity:.75;font-size:12px;margin-bottom:6px">${item.tag||''}</div><strong>${item.q}</strong><p style="margin:8px 0">${item.a}</p><a href="${item.src}" target="_blank" rel="noopener" style="color:#9ad0ff">${item.srcLabel||'Source'} →</a>`;
+    const input=document.getElementById('ask-input'); if(input) input.value=item.q;
+  };
+  window.askSubmit=function(e){
+    e.preventDefault();
+    const v=(document.getElementById('ask-input')?.value||'').toLowerCase();
+    if(v.includes('sac')||v.includes('bag')||v.includes('tasche')) return showAnswer('sac');
+    if(v.includes('prix')||v.includes('price')||v.includes('preis')||v.includes('cost')||v.includes('combien')) return showAnswer('prix');
+    if(v.includes('semi')||v.includes('half')||v.includes('heure')||v.includes('start')||v.includes('départ')||v.includes('depart')) return showAnswer('semi');
+    if(v.includes('dossard')||v.includes('bib')||v.includes('startnummer')) return showAnswer('dossard');
+    if(v.includes('ravit')||v.includes('aid')||v.includes('verpfleg')) return showAnswer('ravito');
+    const box=document.getElementById('ask-answer'); if(!box) return;
+    box.classList.add('show');
+    box.innerHTML=`<p>${ANSWERS.fallback?.a||''}</p>`;
+  };
+})();
+  const path=location.pathname.split('/').pop()||'index.html';
+  document.querySelectorAll('.bottom a').forEach(a=>{
+    const href=a.getAttribute('href');
+    if(href===path || (path==='index.html'&&href==='index.html')) a.classList.add('active');
+  });
