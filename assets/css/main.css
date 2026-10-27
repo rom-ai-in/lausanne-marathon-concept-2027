@@ -972,3 +972,20 @@ html.js .reveal.revealed{opacity:1; transform:none}
 .bottom a{min-height:48px}
 .nav-desk a, .mega a{transition:color .15s var(--ease), background .15s var(--ease)}
 img[loading="lazy"]{background:#eef2f7}
+
+/* WhatsApp FAB: tuck away when partner strip / footer CTAs are on screen */
+.wa-fab.is-tucked{
+  opacity:0;
+  pointer-events:none;
+  transform:scale(.6) translateY(12px);
+  transition:opacity .2s ease, transform .2s ease;
+}
+@media(min-width:720px){
+  .wa-fab.is-tucked{opacity:.35; pointer-events:auto; transform:scale(.85);}
+  .wa-fab.is-tucked:hover,.wa-fab.is-tucked:focus-visible{opacity:1; transform:scale(1);}
+}
+.sponsor-strip{padding-bottom:28px}
+@media(max-width:719px){
+  .sponsor-strip{padding-bottom:36px}
+  .footer{padding-bottom:max(130px, calc(96px + env(safe-area-inset-bottom)));}
+}

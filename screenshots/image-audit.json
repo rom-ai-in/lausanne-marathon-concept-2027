@@ -1,0 +1,58 @@
+{
+  "pages": 176,
+  "imgsChecked": 3948,
+  "brokenCount": 8,
+  "broken": [
+    {
+      "page": "fr/parcours.html",
+      "src": "https://b.tile.openstreetmap.org/12/2123/1448.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "fr/parcours.html",
+      "src": "https://c.tile.openstreetmap.org/12/2124/1448.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "fr/parcours.html",
+      "src": "https://c.tile.openstreetmap.org/12/2123/1449.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "fr/parcours.html",
+      "src": "https://a.tile.openstreetmap.org/12/2124/1449.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "it/parcours.html",
+      "src": "https://b.tile.openstreetmap.org/12/2123/1448.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "it/parcours.html",
+      "src": "https://c.tile.openstreetmap.org/12/2124/1448.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "it/parcours.html",
+      "src": "https://c.tile.openstreetmap.org/12/2123/1449.png",
+      "alt": "",
+      "nw": 0
+    },
+    {
+      "page": "it/parcours.html",
+      "src": "https://a.tile.openstreetmap.org/12/2124/1449.png",
+      "alt": "",
+      "nw": 0
+    }
+  ],
+  "status404": [],
+  "status404Count": 0,
+  "nowrapFails": []
+}

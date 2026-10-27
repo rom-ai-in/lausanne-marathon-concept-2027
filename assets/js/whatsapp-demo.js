@@ -377,6 +377,30 @@
     reply(resolveKey(v),v);
   });
 
+  // Never cover bottom CTAs (partner strip / footer): tuck FAB while they are on screen
+  (function(){
+    var sel='.sponsor-strip-cta, .sponsor-strip, footer.footer, .devenir-banner';
+    var targets=[].slice.call(document.querySelectorAll(sel));
+    if(!targets.length) return;
+    var hit=new Set();
+    function sync(){
+      if(hit.size) fab.classList.add('is-tucked');
+      else fab.classList.remove('is-tucked');
+    }
+    if(!('IntersectionObserver' in window)){
+      fab.classList.add('is-tucked');
+      return;
+    }
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) hit.add(e.target);
+        else hit.delete(e.target);
+      });
+      sync();
+    }, {threshold:0, rootMargin:'12px 0px 12px 0px'});
+    targets.forEach(function(el){ io.observe(el); });
+  })();
+
   // Deep-link helpers from Contact page
   document.addEventListener('click',e=>{
     const a=e.target.closest('[data-wa-open]');
