@@ -28,7 +28,7 @@
   window.showAnswer=function(key){
     const box=document.getElementById('ask-answer'); const item=ANSWERS[key]; if(!box||!item) return;
     box.classList.add('show');
-    box.innerHTML=`<div style="opacity:.75;font-size:12px;margin-bottom:6px">${item.tag||''}</div><strong>${item.q}</strong><p style="margin:8px 0">${item.a}</p><a href="${item.src}" target="_blank" rel="noopener" style="color:#9ad0ff">${item.srcLabel||'Source'} →</a>`;
+    box.innerHTML=`<div style="opacity:.75;font-size:12px;margin-bottom:6px">${item.tag||''}</div><strong>${item.q||''}</strong><p style="margin:8px 0">${item.a}</p>`;
     const input=document.getElementById('ask-input'); if(input) input.value=item.q;
   };
   window.askSubmit=function(e){
