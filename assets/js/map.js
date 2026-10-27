@@ -203,8 +203,9 @@
         }
       });
 
-      const start=L.circleMarker([c.start.lat,c.start.lon],{radius:9,color:'#fff',weight:2,fillColor:'#0f9d58',fillOpacity:1}).bindPopup(`<strong>Départ</strong><br>${c.start.name}`).addTo(map);
-      const finish=L.circleMarker([c.finish.lat,c.finish.lon],{radius:9,color:'#fff',weight:2,fillColor:'#ff5a1f',fillOpacity:1}).bindPopup(`<strong>Arrivée</strong><br>${c.finish.name}`).addTo(map);
+      const I18N=window.LM_I18N||{start:'Départ',finish:'Arrivée',waypoint:'Point de passage',aid:'Ravitaillements'};
+      const start=L.circleMarker([c.start.lat,c.start.lon],{radius:9,color:'#fff',weight:2,fillColor:'#0f9d58',fillOpacity:1}).bindPopup(`<strong>${I18N.start}</strong><br>${c.start.name}`).addTo(map);
+      const finish=L.circleMarker([c.finish.lat,c.finish.lon],{radius:9,color:'#fff',weight:2,fillColor:'#ff5a1f',fillOpacity:1}).bindPopup(`<strong>${I18N.finish}</strong><br>${c.finish.name}`).addTo(map);
       markers.push(start,finish);
 
       (c.aid||[]).forEach(a=>{
@@ -245,7 +246,8 @@
         places.innerHTML=(waypoints[key]||[]).map(w=>{
           let src='../img/photos/lm-09-md.jpg';
           for(const [k,v] of Object.entries(photos)){ if(w.name.includes(k)) {src=v;break} }
-          return `<div class="place"><img src="${src}" alt=""><div class="body"><strong>${w.name}</strong><span>${w.kind==='start'?'Départ':w.kind==='finish'?'Arrivée':'Point de passage'}</span></div></div>`;
+          const I18N2=window.LM_I18N||{start:'Départ',finish:'Arrivée',waypoint:'Point de passage'};
+          return `<div class="place"><img src="${src}" alt=""><div class="body"><strong>${w.name}</strong><span>${w.kind==='start'?I18N2.start:w.kind==='finish'?I18N2.finish:I18N2.waypoint}</span></div></div>`;
         }).join('');
       }
     }).catch(console.error);
