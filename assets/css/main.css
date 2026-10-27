@@ -4,10 +4,13 @@
   --orange:#ff5a1f; --gold:#e8b23a; --ok:#0f9d58;
   --radius:18px; --shadow:0 18px 50px rgba(11,28,51,.10);
   --max:1180px; --header-h:72px;
-  --font: Inter, "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: "Outfit", "Inter", system-ui, sans-serif;
 }
 *{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;font-weight:400}
+h1,h2,h3,h4,.hero h1,.tier-head h2,.stat strong,.countdown strong,.btn{font-family:var(--font-display)}
+h1{font-weight:800;letter-spacing:-.02em} h2{font-weight:750;letter-spacing:-.02em} h3{font-weight:700}
 img{max-width:100%;display:block;height:auto} a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline} button{font:inherit}
 :focus-visible{outline:3px solid var(--cyan);outline-offset:2px}
@@ -70,12 +73,10 @@ a:hover{text-decoration:underline} button{font:inherit}
 /* Layout */
 .wrap{max-width:var(--max);margin:0 auto;padding:28px 20px 110px}
 @media(min-width:980px){
-  .nav-desk{display:flex}
-  .menu-toggle{display:none}
-  .bottom{display:none}
   .wrap{padding-bottom:60px}
-  .logo img{height:58px}
+  .logo img{height:52px}
 }
+/* desktop nav gated at 1180 — see QA block */
 
 /* Hero */
 .hero{position:relative;min-height:min(88vh,760px);color:#fff;display:flex;align-items:flex-end;overflow:hidden;background:var(--navy)}
@@ -294,3 +295,195 @@ th{background:#f3f7fd;font-size:12px;text-transform:uppercase;letter-spacing:.04
 .sitemap-grid a{display:block;padding:10px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--ink);font-weight:650;text-decoration:none}
 .sitemap-grid a:hover{border-color:#b9cff5;background:#eef3fb}
 .btn-gold{background:linear-gradient(135deg,var(--gold),#f0c75a);color:#3a2a00}
+
+/* ===== QA pass: header / CTA / map / spacing ===== */
+.nav-desk > .item > a,
+.nav-desk > a,
+.header-actions .btn,
+.btn,
+.map-toolbar button,
+.presented-by span,
+.presented-bar span,
+.bottom a{
+  white-space:nowrap;
+}
+.header-inner{flex-wrap:nowrap;gap:10px;padding:8px 14px}
+.nav-desk{gap:0;min-width:0}
+.nav-desk > .item > a, .nav-desk > a{padding:10px 9px;font-size:13px}
+.header-actions{gap:6px;flex:0 0 auto}
+.header-actions .btn-sm{padding:8px 12px;font-size:12.5px}
+.logo img{height:46px}
+.presented-by{flex:0 0 auto;max-width:160px;padding:5px 8px;gap:6px}
+.presented-by img{height:22px}
+
+/* Desktop mega-nav only when wide enough to avoid wrap (fixes 1024px) */
+@media(min-width:980px){
+  .nav-desk{display:none}
+  .menu-toggle{display:inline-flex}
+  .bottom{display:flex}
+}
+@media(min-width:1180px){
+  .nav-desk{display:flex}
+  .menu-toggle{display:none}
+  .bottom{display:none}
+  .logo img{height:56px}
+  .presented-by{display:inline-flex;max-width:none}
+  .header-inner{gap:14px;padding:10px 20px}
+  .nav-desk > .item > a, .nav-desk > a{padding:10px 11px;font-size:13.5px}
+  .footer{padding-bottom:48px}
+  .wrap{padding-bottom:60px}
+  .cta-rail{display:none}
+}
+
+/* Presented-by: elegant under-header bar when not in header */
+.presented-by{display:none}
+.presented-bar{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:7px 14px;background:linear-gradient(90deg,#eef5ff,#fff,#eef5ff);
+  border-bottom:1px solid #d7e6ff;font-size:11px;font-weight:800;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+}
+.presented-bar a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink2)}
+.presented-bar img{height:22px;width:auto;object-fit:contain;background:#fff;border-radius:4px;padding:2px 4px}
+@media(min-width:1180px){
+  .presented-bar{display:none}
+  .presented-by{display:inline-flex}
+}
+
+/* Responsive CTA labels: short on narrow, full on wide */
+.btn .lbl-short{display:inline}
+.btn .lbl-full{display:none}
+@media(min-width:1180px){
+  .btn.btn-cta-header .lbl-short{display:none}
+  .btn.btn-cta-header .lbl-full{display:inline}
+}
+
+/* Remove intrusive floating CTA rail */
+.cta-rail{display:none !important}
+
+/* Compact map page hero + less void before selector */
+.hero.compact{min-height:220px}
+.hero.map-hero{min-height:0}
+.hero.map-hero .hero-inner{padding:22px 20px 18px}
+.hero.map-hero h1{font-size:clamp(26px,4vw,40px);margin-bottom:6px}
+.hero.map-hero .lead{margin-bottom:8px;font-size:15px}
+.hero.map-hero .presented-hero{margin-bottom:8px}
+.wrap.tight-top{padding-top:12px}
+.map-shell.section{margin-top:0}
+.map-toolbar{position:sticky;top:var(--header-h);z-index:5;padding:10px 12px}
+.map-toolbar button{white-space:nowrap}
+
+/* Tier titles never under sticky elements */
+.tier-head h2{white-space:normal;overflow-wrap:anywhere}
+.tier{scroll-margin-top:90px}
+
+/* Avoid bottom-nav overlap on mobile content */
+@media(max-width:1179px){
+  .wrap{padding-bottom:120px}
+  .footer{padding-bottom:120px}
+}
+
+
+/* ===== QA harden ===== */
+.header-inner{flex-wrap:nowrap !important; overflow:visible}
+.header .btn, .header .btn span, .nav-desk > a, .nav-desk > .item > a{white-space:nowrap !important}
+.header-inner{max-width:min(1320px,100%)}
+.map-shell.section.map-stage{margin:0 0 14px !important}
+.wrap.tight-top{padding-top:8px !important}
+.hero.map-hero{min-height:0 !important}
+.hero.map-hero .hero-inner{padding:16px 20px 14px !important}
+@media(max-width:719px){
+  .map-shell.fullscreen-mobile #route-map{height:52vh;min-height:340px;max-height:420px}
+}
+@media(min-width:720px) and (max-width:1179px){
+  .bottom{display:none !important}
+  .wrap{padding-bottom:60px}
+  .footer{padding-bottom:48px}
+}
+
+.map-toolbar{background:linear-gradient(180deg,#fff,#f5f8fd);border-bottom:1px solid var(--line)}
+.wrap.tight-top .map-toolbar{padding-top:8px;padding-bottom:8px}
+
+
+/* ===== Perfect pass: liquid glass + nav never wrap ===== */
+.glass, .eyebrow, .hero .presented-hero, .countdown > div, .btn-ghost, .chip{
+  position:relative;
+  background:linear-gradient(160deg, rgba(255,255,255,.28), rgba(255,255,255,.08) 45%, rgba(255,255,255,.14));
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 10px 32px rgba(0,0,0,.28), 0 0 0 1px rgba(255,255,255,.12), inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(0,0,0,.12);
+  -webkit-backdrop-filter:saturate(2.1) blur(22px);
+  backdrop-filter:saturate(2.1) blur(22px);
+  color:#fff;
+  text-shadow:0 1px 2px rgba(0,0,0,.45);
+}
+.glass:before, .eyebrow:before, .hero .presented-hero:before, .countdown > div:before, .btn-ghost:before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.55) 0%, rgba(255,255,255,.08) 38%, transparent 55%);
+  opacity:.9;
+}
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))){
+  .glass, .eyebrow, .hero .presented-hero, .countdown > div, .btn-ghost, .chip{
+    background:rgba(10,28,51,.72);
+    border-color:rgba(255,255,255,.35);
+  }
+}
+.presented-bar{
+  background:linear-gradient(90deg, rgba(238,245,255,.92), rgba(255,255,255,.96), rgba(238,245,255,.92));
+  border:0;border-bottom:1px solid #d7e6ff;color:var(--muted);text-shadow:none;
+  -webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+.presented-bar:before{display:none}
+.presented-bar a{color:var(--ink2);text-shadow:none}
+.map-toolbar button:not(.active){
+  color:var(--ink2);text-shadow:none;
+  background:rgba(255,255,255,.72);
+  border-color:rgba(22,87,217,.18);
+}
+.map-toolbar button.active{background:var(--ink);color:#fff;border-color:var(--ink);backdrop-filter:none;-webkit-backdrop-filter:none;text-shadow:none}
+.countdown > div{border-radius:16px;overflow:hidden}
+.btn-ghost{border-radius:999px}
+
+/* Nav: never wrap, 5 items, burger until wide */
+.header-inner{flex-wrap:nowrap !important; align-items:center; gap:10px; max-width:min(1360px,100%); padding:8px 16px}
+.nav-desk{display:none; align-items:center; gap:2px; flex:1 1 auto; justify-content:center; min-width:0}
+.nav-desk > .item > a, .nav-desk > a{
+  white-space:nowrap !important; flex:0 0 auto;
+  padding:9px 11px; font-size:13.5px; font-weight:650; line-height:1;
+  font-family:var(--font);
+}
+.header-actions{display:flex; align-items:center; gap:6px; margin-left:auto; flex:0 0 auto}
+.header-actions .btn, .header-actions .btn span{white-space:nowrap !important; line-height:1}
+.header-actions .btn-cta-header{padding:8px 12px; font-size:12.5px; font-weight:750}
+.search-btn, .menu-toggle, .lang summary{flex:0 0 auto; white-space:nowrap}
+.lang summary{padding:8px 10px; min-width:0}
+.logo img{height:46px}
+.presented-by{display:none}
+.menu-toggle{display:inline-flex}
+.bottom{display:flex}
+@media(min-width:720px){
+  .bottom{display:none !important}
+  .wrap{padding-bottom:60px}
+  .footer{padding-bottom:48px}
+}
+/* Desktop mega-nav only when 5 short labels + CTA fit (incl. German) */
+@media(min-width:1200px){
+  .nav-desk{display:flex}
+  .menu-toggle{display:none}
+  .presented-by{display:inline-flex; max-width:none}
+  .presented-bar{display:none}
+  .logo img{height:54px}
+  .header-inner{gap:12px; padding:10px 20px}
+  .nav-desk > .item > a, .nav-desk > a{padding:10px 12px; font-size:14px}
+}
+.cta-rail{display:none !important}
+
+.bottom a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1.05;padding:6px 2px}
+.bottom a span.ico,.bottom a > span:first-child{display:block;font-size:18px;line-height:1;margin:0}
+.bottom a .lbl, .bottom a{white-space:nowrap}
+.nav-desk > .item > a, .nav-desk > a, .btn-cta-header{line-height:1.1}
+
+.bottom a .lbl{font-size:10px;font-weight:750;letter-spacing:-.01em;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.bottom a{min-width:0;flex:1 1 0}
+.eyebrow,.hero .presented-hero,.countdown > div,.btn-ghost{border-radius:999px}
+.countdown > div{border-radius:16px}

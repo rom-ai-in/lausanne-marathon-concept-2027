@@ -1,12 +1,48 @@
 (function(){
   const el=document.getElementById('route-map');
   if(!el || typeof L==='undefined') return;
-  const map=L.map(el,{scrollWheelZoom:false, tap:true});
+  const map=L.map(el,{scrollWheelZoom:false, tap:true, zoomControl:true, zoomSnap:0.25, zoomDelta:0.5});
+  window.LM_MAP=map;
+  // Lake Geneva / Lausanne default so first paint is never Epalinges hinterland
+  map.setView([46.505, 6.66], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom:19
   }).addTo(map);
+  function fitRoute(bounds){
+    if(!bounds || !bounds.isValid()) return;
+    const doFit=()=>{
+      map.invalidateSize({animate:false});
+      const size=map.getSize();
+      if(size.x < 40 || size.y < 40) return;
+      const tall = size.y > size.x * 0.85;
+      // Asymmetric padding: extra bottom space biases the route upward so the lake
+      // stays visible and Epalinges/Savigny hinterland is cropped on tall phones.
+      map.fitBounds(bounds, {
+        paddingTopLeft: L.point(tall ? 14 : 36, tall ? 10 : 32),
+        paddingBottomRight: L.point(tall ? 14 : 36, tall ? Math.round(size.y * 0.22) : 32),
+        maxZoom: 14,
+        animate: false
+      });
+      // Tall phones: keep route dominant; fractional zoom OK in Leaflet
+      if(tall){
+        const minZ = (currentKey==='marathon') ? 11.35 : 12;
+        if(map.getZoom() < minZ){
+          const c=bounds.getCenter();
+          map.setView([c.lat - 0.003, c.lng], minZ, {animate:false});
+        }
+      }
+    };
+    doFit();
+    requestAnimationFrame(doFit);
+    setTimeout(doFit, 180);
+    setTimeout(doFit, 550);
+  }
   let layer=null, markers=[], cursor=null, latlngs=[], profile=[], currentKey='semi';
+  map.whenReady(()=>map.invalidateSize({animate:false}));
+  window.addEventListener('resize', ()=>{
+    if(layer) fitRoute(layer.getBounds());
+  });
   const colors={semi:'#1657d9',marathon:'#ff5a1f',dix:'#0f9d58'};
   const labelEl=document.getElementById('map-course-label');
   const noteEl=document.getElementById('map-note');
@@ -99,7 +135,7 @@
       markers.forEach(m=>map.removeLayer(m)); markers=[];
       if(cursor){map.removeLayer(cursor);cursor=null}
       layer=L.geoJSON(c.geojson,{style:{color:colors[key]||'#1657d9',weight:5,opacity:.92}}).addTo(map);
-      map.fitBounds(layer.getBounds(),{padding:[28,28]});
+      fitRoute(layer.getBounds());
       latlngs=c.geojson.geometry.coordinates.map(([lon,lat])=>[lat,lon]);
 
       // km markers every 5km along profile
