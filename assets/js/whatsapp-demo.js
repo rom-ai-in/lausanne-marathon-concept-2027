@@ -18,6 +18,9 @@
         {id:'parcours',label:'Parcours'},
         {id:'resultats',label:'Résultats'},
         {id:'photos',label:'Photos'},
+        {id:'meteo',label:'Météo'},
+        {id:'inscription',label:'Inscription'},
+        {id:'sacs',label:'Sacs coureurs'},
         {id:'humain',label:'Parler à l’équipe'}
       ],
       hello:'Bonjour 👋 Je suis l’assistant WhatsApp du Lausanne Marathon (démo concept). Posez une question sur les horaires, les dossards ou le parcours — ou demandez à parler à l’équipe.',
@@ -42,6 +45,18 @@
         photos:{
           user:'Où retrouver mes photos ?',
           bot:'Les photos coureurs sont disponibles via Alphafoto. Lien depuis la page Photos de cette maquette.<br><a href="photos.html">Photos →</a>'
+        },
+        meteo:{
+          user:'Quel temps prévu le jour J ?',
+          bot:'Consultez la page Météo pour un rappel local le jour de course. Les consignes opérationnelles restent communiquées par l’organisation.<br><a href="meteo.html">Météo →</a>'
+        },
+        inscription:{
+          user:'Comment m’inscrire pour 2027 ?',
+          bot:'La pré-inscription 2027 est ouverte via Datasport. Tarifs et catégories : référence édition 2026.<br><a href="inscription.html">Inscription →</a> · <a href="https://onreg.datasport.com/lausanne-marathon-2026" target="_blank" rel="noopener">Datasport →</a>'
+        },
+        sacs:{
+          user:'Où déposer mon sac ?',
+          bot:'Dépôt possible à l’arrivée Bellerive-Plage (surveillé, sur présentation du dossard). Pas de transfert départ → arrivée (~420 m).<br><a href="sacs.html">Sacs coureurs →</a>'
         },
         humain:{
           user:'Je voudrais changer mon nom d’inscription / un remboursement.',
@@ -69,6 +84,9 @@
         {id:'parcours',label:'Strecke'},
         {id:'resultats',label:'Resultate'},
         {id:'photos',label:'Fotos'},
+        {id:'meteo',label:'Wetter'},
+        {id:'inscription',label:'Anmeldung'},
+        {id:'sacs',label:'Gepäck'},
         {id:'humain',label:'Team kontaktieren'}
       ],
       hello:'Hallo 👋 Ich bin der WhatsApp-Assistent des Lausanne Marathon (Konzept-Demo). Fragen Sie nach Startzeiten, Startnummern oder der Strecke — oder bitten Sie um Kontakt mit dem Team.',
@@ -93,6 +111,18 @@
         photos:{
           user:'Wo finde ich meine Fotos?',
           bot:'Läuferfotos über Alphafoto. Link auf der Seite Fotos dieses Mockups.<br><a href="photos.html">Fotos →</a>'
+        },
+        meteo:{
+          user:'Wie wird das Wetter am Renntag?',
+          bot:'Auf der Seite Wetter finden Sie einen lokalen Hinweis. Operative Vorgaben kommuniziert die Organisation.<br><a href="meteo.html">Wetter →</a>'
+        },
+        inscription:{
+          user:'Wie melde ich mich für 2027 an?',
+          bot:'Die Voranmeldung 2027 ist über Datasport geöffnet. Preise: Referenz 2026.<br><a href="inscription.html">Anmeldung →</a> · <a href="https://onreg.datasport.com/lausanne-marathon-2026" target="_blank" rel="noopener">Datasport →</a>'
+        },
+        sacs:{
+          user:'Wo gebe ich mein Gepäck ab?',
+          bot:'Abgabe am Ziel Bellerive-Plage möglich (bewacht, mit Startnummer). Kein Transfer Start → Ziel (~420 m).<br><a href="sacs.html">Gepäck →</a>'
         },
         humain:{
           user:'Ich möchte meinen Namen ändern / eine Rückerstattung.',
@@ -120,6 +150,9 @@
         {id:'parcours',label:'Course'},
         {id:'resultats',label:'Results'},
         {id:'photos',label:'Photos'},
+        {id:'meteo',label:'Weather'},
+        {id:'inscription',label:'Registration'},
+        {id:'sacs',label:'Bag drop'},
         {id:'humain',label:'Talk to the team'}
       ],
       hello:'Hi 👋 I’m the Lausanne Marathon WhatsApp assistant (concept demo). Ask about start times, bib pick-up or the course — or ask to speak with the team.',
@@ -144,6 +177,18 @@
         photos:{
           user:'Where can I find my photos?',
           bot:'Runner photos are available via Alphafoto. Link from the Photos page of this mockup.<br><a href="photos.html">Photos →</a>'
+        },
+        meteo:{
+          user:'What’s the weather on race day?',
+          bot:'Check the Weather page for a local reminder. Operational guidance comes from the organisers.<br><a href="meteo.html">Weather →</a>'
+        },
+        inscription:{
+          user:'How do I register for 2027?',
+          bot:'2027 pre-registration is open via Datasport. Fees: 2026 reference.<br><a href="inscription.html">Registration →</a> · <a href="https://onreg.datasport.com/lausanne-marathon-2026" target="_blank" rel="noopener">Datasport →</a>'
+        },
+        sacs:{
+          user:'Where do I drop my bag?',
+          bot:'Drop-off at the Bellerive-Plage finish (supervised, show your bib). No start → finish transfer (~420 m).<br><a href="sacs.html">Race bags →</a>'
         },
         humain:{
           user:'I need a name change / a refund.',
@@ -171,6 +216,9 @@
         {id:'parcours',label:'Percorso'},
         {id:'resultats',label:'Risultati'},
         {id:'photos',label:'Foto'},
+        {id:'meteo',label:'Meteo'},
+        {id:'inscription',label:'Iscrizione'},
+        {id:'sacs',label:'Borse'},
         {id:'humain',label:'Parlare al team'}
       ],
       hello:'Ciao 👋 Sono l’assistente WhatsApp del Lausanne Marathon (demo concept). Chiedi orari, pettorali o percorso — oppure di parlare con il team.',
@@ -195,6 +243,18 @@
         photos:{
           user:'Dove ritrovo le mie foto?',
           bot:'Le foto dei corridori sono disponibili via Alphafoto. Link dalla pagina Foto di questo mockup.<br><a href="photos.html">Foto →</a>'
+        },
+        meteo:{
+          user:'Che tempo farà il giorno gara?',
+          bot:'Consultate la pagina Meteo per un promemoria locale. Le indicazioni operative restano dell’organizzazione.<br><a href="meteo.html">Meteo →</a>'
+        },
+        inscription:{
+          user:'Come mi iscrivo per il 2027?',
+          bot:'La pre-iscrizione 2027 è aperta via Datasport. Tariffe: riferimento 2026.<br><a href="inscription.html">Iscrizione →</a> · <a href="https://onreg.datasport.com/lausanne-marathon-2026" target="_blank" rel="noopener">Datasport →</a>'
+        },
+        sacs:{
+          user:'Dove deposito la borsa?',
+          bot:'Deposito all’arrivo Bellerive-Plage (sorvegliato, con pettorale). Nessun trasferimento partenza → arrivo (~420 m).<br><a href="sacs.html">Borse →</a>'
         },
         humain:{
           user:'Vorrei cambiare il nome / un rimborso.',
