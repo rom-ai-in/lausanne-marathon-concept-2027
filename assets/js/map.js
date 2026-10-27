@@ -3,40 +3,80 @@
   if(!el || typeof L==='undefined') return;
   const map=L.map(el,{scrollWheelZoom:false, tap:true, zoomControl:true, zoomSnap:0.25, zoomDelta:0.5});
   window.LM_MAP=map;
-  // Lake Geneva / Lausanne default so first paint is never Epalinges hinterland
   map.setView([46.505, 6.66], 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom:19
   }).addTo(map);
+
+  let layer=null, markers=[], cursor=null, latlngs=[], profile=[], currentKey='semi';
+  let elevDefaults={km:'', alt:''};
+  let lastBounds=null;
+
+  function aspectAwareHeight(bounds){
+    if(!bounds || !bounds.isValid()) return;
+    const sw=bounds.getSouthWest(), ne=bounds.getNorthEast();
+    const midLat=(sw.lat+ne.lat)/2;
+    const latSpan=Math.max(1e-6, ne.lat-sw.lat);
+    const lngSpan=Math.max(1e-6, (ne.lng-sw.lng)*Math.cos(midLat*Math.PI/180));
+    const routeAspect=lngSpan/latSpan; // width / height of route
+    const mapW=el.clientWidth || 350;
+    const mobile=mapW < 720 || window.innerWidth < 720;
+    // Target map aspect ≈ route aspect so the line fills the frame
+    let targetH=Math.round(mapW / Math.max(1.15, Math.min(routeAspect, 4.2)));
+    if(mobile){
+      targetH=Math.max(200, Math.min(300, targetH));
+      // Wide coastal routes: shorter map so the line fills more of the frame
+      if(routeAspect > 1.8) targetH=Math.max(200, Math.min(240, Math.round(mapW/routeAspect*1.05)));
+      if(routeAspect > 2.6) targetH=Math.max(190, Math.min(220, Math.round(mapW/routeAspect*1.15)));
+      if(routeAspect > 3.5) targetH=Math.max(180, Math.min(200, Math.round(mapW/routeAspect*1.25)));
+    } else {
+      targetH=Math.max(340, Math.min(500, targetH));
+      if(routeAspect > 2.4) targetH=Math.max(320, Math.min(400, Math.round(mapW/routeAspect*1.1)));
+    }
+    el.style.height=targetH+'px';
+  }
+
   function fitRoute(bounds){
     if(!bounds || !bounds.isValid()) return;
+    lastBounds=bounds;
     const doFit=()=>{
+      aspectAwareHeight(bounds);
       map.invalidateSize({animate:false});
       const size=map.getSize();
       if(size.x < 40 || size.y < 40) return;
-      const hPad = Math.max(36, Math.round(size.x * 0.12));
-      const vPad = Math.max(28, Math.round(size.y * 0.10));
+      const hPad=Math.max(32, Math.round(size.x*0.11));
+      const vPad=Math.max(18, Math.round(size.y*0.10));
+      // Allow higher zoom so short/wide routes aren't stuck with lake padding
+      const maxZ = size.x < 720 ? 13.5 : 14;
       map.fitBounds(bounds, {
         paddingTopLeft: L.point(hPad, vPad),
         paddingBottomRight: L.point(hPad, vPad),
-        maxZoom: size.x < 720 ? 12 : 13,
+        maxZoom: maxZ,
         animate: false
       });
+      // Coastal E–W routes: bias view inland (north) so the line isn't stuck above empty lake
+      const sw=bounds.getSouthWest(), ne=bounds.getNorthEast();
+      const midLat=(sw.lat+ne.lat)/2;
+      const latSpan=Math.max(1e-6, ne.lat-sw.lat);
+      const lngSpan=Math.max(1e-6, (ne.lng-sw.lng)*Math.cos(midLat*Math.PI/180));
+      const routeAspect=lngSpan/latSpan;
+      if(size.x < 720 && routeAspect > 1.6){
+        map.panBy([0, -Math.round(size.y * 0.08)], {animate:false});
+      }
     };
     doFit();
     requestAnimationFrame(()=>requestAnimationFrame(doFit));
-    setTimeout(doFit, 200);
-    setTimeout(doFit, 550);
+    setTimeout(doFit, 180);
+    setTimeout(doFit, 500);
   }
-  let layer=null, markers=[], cursor=null, latlngs=[], profile=[], currentKey='semi';
+
   map.whenReady(()=>map.invalidateSize({animate:false}));
-  window.addEventListener('resize', ()=>{
-    if(layer) fitRoute(layer.getBounds());
-  });
+  window.addEventListener('resize', ()=>{ if(lastBounds) fitRoute(lastBounds); else if(layer) fitRoute(layer.getBounds()); });
   if (window.ResizeObserver){
-    new ResizeObserver(()=>{ if(layer) fitRoute(layer.getBounds()); }).observe(el);
+    new ResizeObserver(()=>{ if(lastBounds) fitRoute(lastBounds); }).observe(el);
   }
+
   const colors={semi:'#1657d9',marathon:'#ff5a1f',dix:'#0f9d58'};
   const labelEl=document.getElementById('map-course-label');
   const noteEl=document.getElementById('map-note');
@@ -74,6 +114,11 @@
       if(elevAlt) elevAlt.textContent=`${Math.round(profile[i].e)} m`;
     }
   }
+  function restoreElevDefaults(){
+    if(elevKm && elevDefaults.km) elevKm.textContent=elevDefaults.km;
+    if(elevAlt && elevDefaults.alt) elevAlt.textContent=elevDefaults.alt;
+    if(elevTip) elevTip.style.display='none';
+  }
   function drawProfile(prof, color){
     if(!elevEl||!prof?.length) return;
     profile=prof;
@@ -81,6 +126,10 @@
     const ds=prof.map(p=>p.d), es=prof.map(p=>p.e);
     const minE=Math.min(...es), maxE=Math.max(...es);
     const minD=Math.min(...ds), maxD=Math.max(...ds)||1;
+    // Default useful labels: total distance + altitude range
+    elevDefaults.km=`${maxD.toFixed(1).replace('.',',')} km`;
+    elevDefaults.alt=`${Math.round(minE)}–${Math.round(maxE)} m`;
+    restoreElevDefaults();
     const xy=prof.map(p=>{
       const x=pad+(p.d-minD)/(maxD-minD)*(w-pad*2);
       const y=h-pad-(p.e-minE)/Math.max(1,maxE-minE)*(h-pad*2);
@@ -114,7 +163,8 @@
     };
     chart.onmousemove=e=>onMove(e.clientX);
     chart.ontouchmove=e=>{if(e.touches[0]) onMove(e.touches[0].clientX)};
-    chart.onmouseleave=()=>{if(elevTip) elevTip.style.display='none'};
+    chart.onmouseleave=()=>restoreElevDefaults();
+    chart.ontouchend=()=>restoreElevDefaults();
   }
 
   function load(key){
@@ -129,10 +179,9 @@
       markers.forEach(m=>map.removeLayer(m)); markers=[];
       if(cursor){map.removeLayer(cursor);cursor=null}
       layer=L.geoJSON(c.geojson,{style:{color:colors[key]||'#1657d9',weight:5,opacity:.92}}).addTo(map);
-      fitRoute(layer.getBounds().pad(0.08));
+      fitRoute(layer.getBounds().pad(0.06));
       latlngs=c.geojson.geometry.coordinates.map(([lon,lat])=>[lat,lon]);
 
-      // km markers every 5km along profile
       (c.profile||[]).forEach(p=>{
         if(p.d>0 && Math.abs(p.d%5)<0.15){
           const i=distToIndex(p.d);
@@ -170,10 +219,9 @@
       if(aidEl){
         aidEl.innerHTML=(c.aid||[]).map(a=>`<div class="aid"><div class="km">Km ${a.km}</div><div><strong>${a.name}</strong><div style="color:var(--muted);font-size:13px">${a.offer}</div></div></div>`).join('');
       }
-      // Refit to include polyline + start/finish (+ markers) with padding
       try{
         const group=L.featureGroup([layer, ...markers].filter(Boolean));
-        if(group.getLayers().length) fitRoute(group.getBounds().pad(0.1));
+        if(group.getLayers().length) fitRoute(group.getBounds().pad(0.08));
       }catch(e){}
       const places=document.getElementById('place-rail');
       if(places){

@@ -671,3 +671,14 @@ body.page-parcours .wrap{padding-bottom:calc(72px + env(safe-area-inset-bottom))
   body.page-parcours .map-shell.fullscreen-mobile{margin-left:0;margin-right:0}
   body.page-parcours .section.map-stage{margin-top:0; margin-bottom:0}
 }
+
+/* aspect-aware map height (JS sets inline height) */
+body.page-parcours #route-map{height:260px; transition:height .15s ease}
+@media(min-width:720px){
+  body.page-parcours #route-map{height:440px}
+}
+@media(max-width:719px){
+  body.page-parcours .map-shell.fullscreen-mobile #route-map{
+    height:260px; min-height:210px; max-height:320px;
+  }
+}
