@@ -1,0 +1,134 @@
+{
+  "semi": [
+    {
+      "name": "Place de Milan",
+      "lat": 46.52185,
+      "lon": 6.62055,
+      "kind": "start"
+    },
+    {
+      "name": "Ouchy / Musée Olympique",
+      "lat": 46.5086,
+      "lon": 6.6339,
+      "kind": "poi"
+    },
+    {
+      "name": "Pully",
+      "lat": 46.5095,
+      "lon": 6.6618,
+      "kind": "poi"
+    },
+    {
+      "name": "Lutry",
+      "lat": 46.5028,
+      "lon": 6.6868,
+      "kind": "poi"
+    },
+    {
+      "name": "Cully · Lavaux",
+      "lat": 46.4889,
+      "lon": 6.7294,
+      "kind": "poi"
+    },
+    {
+      "name": "Bellerive Plage",
+      "lat": 46.5098,
+      "lon": 6.626,
+      "kind": "finish"
+    }
+  ],
+  "marathon": [
+    {
+      "name": "Place de Milan",
+      "lat": 46.52185,
+      "lon": 6.62055,
+      "kind": "start"
+    },
+    {
+      "name": "Ouchy",
+      "lat": 46.5078,
+      "lon": 6.6355,
+      "kind": "poi"
+    },
+    {
+      "name": "Pully",
+      "lat": 46.5095,
+      "lon": 6.6618,
+      "kind": "poi"
+    },
+    {
+      "name": "Lutry",
+      "lat": 46.5028,
+      "lon": 6.6868,
+      "kind": "poi"
+    },
+    {
+      "name": "Cully · Lavaux",
+      "lat": 46.4889,
+      "lon": 6.7294,
+      "kind": "poi"
+    },
+    {
+      "name": "Rivaz",
+      "lat": 46.4748,
+      "lon": 6.7875,
+      "kind": "poi"
+    },
+    {
+      "name": "Corseaux",
+      "lat": 46.4685,
+      "lon": 6.8265,
+      "kind": "poi"
+    },
+    {
+      "name": "Vevey",
+      "lat": 46.461,
+      "lon": 6.843,
+      "kind": "poi"
+    },
+    {
+      "name": "La Tour-de-Peilz",
+      "lat": 46.4555,
+      "lon": 6.858,
+      "kind": "poi"
+    },
+    {
+      "name": "Bellerive Plage",
+      "lat": 46.5098,
+      "lon": 6.626,
+      "kind": "finish"
+    }
+  ],
+  "dix": [
+    {
+      "name": "Place de Milan",
+      "lat": 46.52185,
+      "lon": 6.62055,
+      "kind": "start"
+    },
+    {
+      "name": "Ouchy",
+      "lat": 46.5078,
+      "lon": 6.6355,
+      "kind": "poi"
+    },
+    {
+      "name": "Pully",
+      "lat": 46.5095,
+      "lon": 6.6618,
+      "kind": "poi"
+    },
+    {
+      "name": "Lutry",
+      "lat": 46.5028,
+      "lon": 6.6868,
+      "kind": "poi"
+    },
+    {
+      "name": "Bellerive Plage",
+      "lat": 46.5098,
+      "lon": 6.626,
+      "kind": "finish"
+    }
+  ]
+}

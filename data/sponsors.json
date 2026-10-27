@@ -1,0 +1,304 @@
+{
+  "presenting": {
+    "title": "PRESENTING SPONSOR",
+    "items": [
+      {
+        "file": "sponsors_groupemutuel.png",
+        "name": "Groupe Mutuel",
+        "url": "https://www.groupemutuel.ch/"
+      }
+    ]
+  },
+  "patronage": {
+    "title": "SOUS LE PATRONAGE",
+    "items": [
+      {
+        "file": "sponsors_lausanne_capitale_olympique.png",
+        "name": "Lausanne Capitale Olympique",
+        "url": "https://www.lausanne-tourisme.ch/fr/capitale-olympique/"
+      },
+      {
+        "file": "sponsors_musee_olympique.png",
+        "name": "Musée Olympique",
+        "url": "https://olympics.com/musee"
+      },
+      {
+        "file": "sponsors_vaud.png",
+        "name": "Canton de Vaud",
+        "url": "https://www.vaud.ch/"
+      },
+      {
+        "file": "sponsors_fonds_sport_vaudois.png",
+        "name": "Fonds du sport vaudois",
+        "url": "https://ffsv.ch/"
+      }
+    ]
+  },
+  "communes": {
+    "title": "LES COMMUNES PARTENAIRES",
+    "items": [
+      {
+        "file": "SPONSORS-COMMUNE-LAUSANNE.png",
+        "name": "Lausanne",
+        "url": "https://www.lausanne.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-PULLY.png",
+        "name": "Pully",
+        "url": "https://www.pully.ch/fr/accueil/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-PAUDEX.png",
+        "name": "Paudex",
+        "url": "https://www.paudex.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-LUTRY.png",
+        "name": "Lutry",
+        "url": "https://www.lutry.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-PUIDOUX.png",
+        "name": "Puidoux",
+        "url": "https://www.puidoux.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-BOURG-EN-LAVAUX.png",
+        "name": "Bourg-en-Lavaux",
+        "url": "https://www.b-e-l.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-RIVAZ.png",
+        "name": "Rivaz",
+        "url": "https://www.rivaz.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-SAINT-SAPHORIN.png",
+        "name": "Saint-Saphorin",
+        "url": "http://www.saint-saphorin.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-CHARDONNE.png",
+        "name": "Chardonne",
+        "url": "https://www.chardonne.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-CORSEAUX.png",
+        "name": "Corseaux",
+        "url": "https://www.corseaux.ch/"
+      },
+      {
+        "file": "SPONSORS-COMMUNE-VEVEY.png",
+        "name": "Vevey",
+        "url": "https://www.vevey.ch/"
+      }
+    ]
+  },
+  "principaux": {
+    "title": "SPONSORS PRINCIPAUX",
+    "items": [
+      {
+        "file": "sponsors_retraites-populaires.png",
+        "name": "Retraites Populaires",
+        "url": "https://www.retraitespopulaires.ch/"
+      },
+      {
+        "file": "sponsors_hbf-sa.png",
+        "name": "HBF SA",
+        "url": "https://www.hbf-sa.ch/"
+      },
+      {
+        "file": "sponsors_migros_vaud.png",
+        "name": "Migros Vaud",
+        "url": "https://www.migros.ch/"
+      },
+      {
+        "file": "sponsors_helvetique_textile.png",
+        "name": "Helvétique Textile",
+        "url": "http://www.helvetiquetextile.ch/"
+      }
+    ]
+  },
+  "sponsors": {
+    "title": "SPONSORS",
+    "items": [
+      {
+        "file": "sponsors_outlet_aubonne-1.png",
+        "name": "Outlet Aubonne",
+        "url": "https://www.outlet-aubonne.ch/fr/"
+      },
+      {
+        "file": "sponsors_credit_agricole.png",
+        "name": "Crédit Agricole",
+        "url": "https://www.credit-agricole.fr/"
+      },
+      {
+        "file": "sponsors_focus_water.png",
+        "name": "Focus Water",
+        "url": "https://focuswater.ch/"
+      },
+      {
+        "file": "sponsors_orthoconsult.png",
+        "name": "Ortho Consult",
+        "url": "https://ortho-consult.ch/"
+      },
+      {
+        "file": "sponsors_pavillon_naftule.png",
+        "name": "Pavillon Naftule",
+        "url": "https://jokerscomedy.ch/equipe/"
+      },
+      {
+        "file": "sponsors_alphafoto.png",
+        "name": "Alphafoto",
+        "url": "https://www.alphafoto.com/"
+      },
+      {
+        "file": "sponsors_chiquita.png",
+        "name": "Chiquita",
+        "url": "https://www.chiquita.com/"
+      },
+      {
+        "file": "sponsors_decathlon.png",
+        "name": "Decathlon",
+        "url": "https://www.decathlon.ch/fr/"
+      }
+    ]
+  },
+  "partenaires": {
+    "title": "PARTENAIRES ET FOURNISSEURS",
+    "items": [
+      {
+        "file": "sponsors_movenpick-1.png",
+        "name": "Mövenpick",
+        "url": "https://movenpick.accor.com/"
+      },
+      {
+        "file": "sponsors_powerbar.png",
+        "name": "PowerBar",
+        "url": "https://www.powerfood.ch/fr/powerbar"
+      },
+      {
+        "file": "sponsors_plasmacom.png",
+        "name": "Plasmacom",
+        "url": "https://hemoroadshow.ch/"
+      },
+      {
+        "file": "sponsors_summit_video.png",
+        "name": "Summit Video",
+        "url": "https://www.summitvideo.ch/"
+      },
+      {
+        "file": "sponsors_sil.png",
+        "name": "SIL",
+        "url": "https://www.lausanne.ch/vie-pratique/energies-et-eau/services-industriels.html"
+      },
+      {
+        "file": "sponsors_perskindol.png",
+        "name": "Perskindol",
+        "url": "https://perskindol.ch/fr/"
+      },
+      {
+        "file": "sponsors_run_motion.png",
+        "name": "Run Motion",
+        "url": "https://run-motion.com/"
+      },
+      {
+        "file": "sponsors_1032romanel.png",
+        "name": "Migros 1032 Romanel",
+        "url": "https://migros1032.ch/"
+      },
+      {
+        "file": "sponsors_enmouvement.png",
+        "name": "En Mouvement",
+        "url": "https://www.enmouvement.ch/"
+      },
+      {
+        "file": "sponsors_leman_running.png",
+        "name": "Léman Running",
+        "url": "https://lemanrunning.com/"
+      },
+      {
+        "file": "sponsors_blanc_transport.png",
+        "name": "Blanc Transports",
+        "url": "https://www.blanctransports.ch/"
+      },
+      {
+        "file": "sponsors_amaudruz_sa.png",
+        "name": "Amaudruz SA",
+        "url": "https://www.amaudruz.ch/"
+      },
+      {
+        "file": "sponsors_kambly.png",
+        "name": "Kambly",
+        "url": "https://kambly.com/"
+      },
+      {
+        "file": "sponsors_swipote.png",
+        "name": "La Swipote",
+        "url": "https://domaine-deblue.ch/la-swipote/"
+      },
+      {
+        "file": "sponsors_physio-clinics.png",
+        "name": "Physio Clinics",
+        "url": "https://physio-clinics.ch/"
+      },
+      {
+        "file": "sponsors_skyphysio.png",
+        "name": "Skyphysio",
+        "url": "http://www.skyphysio.ch/"
+      },
+      {
+        "file": "sponsors_la-semeuse.png",
+        "name": "La Semeuse",
+        "url": "https://www.lasemeuse.ch/"
+      },
+      {
+        "file": "sponsors_sige.png",
+        "name": "SIGE",
+        "url": "https://www.sige.ch/"
+      },
+      {
+        "file": "sponsors_ducommun.png",
+        "name": "Ducommun",
+        "url": "https://www.ducommun.ch/"
+      },
+      {
+        "file": "sponsors_sos.png",
+        "name": "SOS Surveillance",
+        "url": "https://www.sos-surveillance.ch/fr"
+      }
+    ]
+  },
+  "medias": {
+    "title": "SPONSORS MEDIAS",
+    "items": [
+      {
+        "file": "sponsors_le_matin_dimanche.png",
+        "name": "Le Matin Dimanche",
+        "url": "https://epaper.lematindimanche.ch/"
+      },
+      {
+        "file": "sponsors_lfm.png",
+        "name": "LFM",
+        "url": "https://www.lfm.ch/"
+      },
+      {
+        "file": "sponsors_zatopek_magazine.png",
+        "name": "Zatopek Magazine",
+        "url": "https://www.zatopekmagazine.com/ch/"
+      },
+      {
+        "file": "sponsors_athle_ch.png",
+        "name": "athle.ch",
+        "url": "https://www.athle.ch/"
+      },
+      {
+        "file": "sponsors_apg_sga.png",
+        "name": "APG|SGA",
+        "url": "https://www.apgsga.ch/fr/"
+      }
+    ]
+  },
+  "devenir_url": "https://fr.lausanne-marathon.com/sponsors/devenez-sponsors-2025/",
+  "source": "https://fr.lausanne-marathon.com/sponsors/"
+}

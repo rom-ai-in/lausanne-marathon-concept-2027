@@ -1,0 +1,11 @@
+{
+  "onreg": "https://onreg.datasport.com/lausanne-marathon-2026",
+  "startlist": "https://datasport.com/live/startlist/?racenr=28110",
+  "results_2026": "https://datasport.com/fr/results/lausanne-marathon-2026",
+  "course_2026": "https://datasport.com/fr/course/lausanne-marathon-2026",
+  "leaderboard": "https://datasport.com/fr/course/lausanne-marathon-2026/leaderboard",
+  "live": "https://datasport.com/live/?racenr=28110",
+  "alphafoto": "https://www.alphafoto.com/event.php?l=fr&eventID=2064",
+  "archives_note": "Palmar\u00e8s annuel sur fr.lausanne-marathon.com/palmares/ avec liens Datasport historiques",
+  "verified": "200 OK curl 2026-10-27"
+}
