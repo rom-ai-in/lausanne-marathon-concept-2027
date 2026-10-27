@@ -930,12 +930,19 @@ body.wa-open .wa-fab{display:none}
 .hero.compact{min-height:clamp(280px,42vw,420px)}
 .hero-inner h1{letter-spacing:-.03em; text-wrap:balance}
 .hero-inner .lead{text-wrap:pretty; max-width:54ch}
-.reveal{opacity:0; transform:translateY(14px); transition:opacity .55s var(--ease), transform .55s var(--ease)}
-.reveal.in{opacity:1; transform:none}
+/* Reveal: visible by default. Hidden only when JS marked html.js AND added .reveal */
+.reveal{opacity:1; transform:none}
+html.js .reveal{opacity:0; transform:translateY(14px); transition:opacity .55s var(--ease), transform .55s var(--ease)}
+html.js .reveal.in,
+html.js .reveal.revealed{opacity:1; transform:none}
 @media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1; transform:none; transition:none}
+  html.js .reveal{opacity:1; transform:none; transition:none}
   .card:hover,.vis-item:hover,.kpi:hover,.proc-step:hover,.btn:hover{transform:none}
 }
+@media print{
+  html.js .reveal{opacity:1!important; transform:none!important; transition:none!important}
+}
+
 .bottom a{min-height:48px}
 .nav-desk a, .mega a{transition:color .15s var(--ease), background .15s var(--ease)}
 img[loading="lazy"]{background:#eef2f7}

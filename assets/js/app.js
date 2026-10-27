@@ -78,48 +78,74 @@
   })();
 })();
 
-/* partner pitch + reveal */
+/* partner pitch + reveal — robust: content visible without JS */
 (function(){
+  var root = document.documentElement;
+  root.classList.add('js');
+
+  function prefersReduced(){
+    try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+    catch(e){ return false; }
+  }
+
+  function revealEl(el){
+    if(!el) return;
+    el.classList.add('in','revealed');
+    if(el.classList.contains('kpi')) animateCount(el);
+  }
+
+  function revealAll(){
+    document.querySelectorAll('.reveal').forEach(revealEl);
+  }
+
   function animateCount(el){
-    const target = parseInt(el.getAttribute('data-count')||'0',10);
+    var target = parseInt(el.getAttribute('data-count')||'0',10);
     if(!target || el.dataset.done) return;
     el.dataset.done='1';
-    const num = el.querySelector('.kpi-num');
+    var num = el.querySelector('.kpi-num');
     if(!num) return;
-    const final = num.textContent;
-    const prefers = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(prefers){ return; }
-    const start = performance.now();
-    const dur = 900;
-    const step = (now)=>{
-      const p = Math.min(1,(now-start)/dur);
-      const eased = 1-Math.pow(1-p,3);
-      const v = Math.round(target*eased);
-      num.textContent = v.toLocaleString(document.documentElement.lang||'fr-CH');
+    var final = num.textContent;
+    if(prefersReduced()){ return; }
+    var start = performance.now();
+    var dur = 900;
+    function step(now){
+      var p = Math.min(1,(now-start)/dur);
+      var eased = 1-Math.pow(1-p,3);
+      var v = Math.round(target*eased);
+      try { num.textContent = v.toLocaleString(root.lang||'fr-CH'); }
+      catch(e){ num.textContent = String(v); }
       if(p<1) requestAnimationFrame(step); else num.textContent = final;
-    };
+    }
     requestAnimationFrame(step);
   }
-  const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){
-        e.target.classList.add('in');
-        if(e.target.classList.contains('kpi')) animateCount(e.target);
-        io.unobserve(e.target);
-      }
-    });
-  },{threshold:0.2}) : null;
-  document.querySelectorAll('.partner-pitch section, .kpi, .card, .vis-item, .proc-step').forEach(el=>{
-    el.classList.add('reveal');
-    if(io) io.observe(el); else el.classList.add('in');
-  });
-  document.querySelectorAll('form[data-partner-demo]').forEach(form=>{
-    form.addEventListener('submit', (ev)=>{
+
+  var targets = document.querySelectorAll('.partner-pitch .kpi, .partner-pitch .card, .partner-pitch .vis-item, .partner-pitch .proc-step, .partner-pitch .devenir-banner, .reveal-on-scroll');
+  // Also allow explicit .reveal already in markup; don't blanket-hide every .card site-wide
+  targets.forEach(function(el){ el.classList.add('reveal'); });
+
+  if(prefersReduced() || !('IntersectionObserver' in window)){
+    revealAll();
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          revealEl(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px 12% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    // Safety net: never leave content invisible (screenshots, slow IO, odd viewports)
+    setTimeout(revealAll, 1500);
+  }
+
+  document.querySelectorAll('form[data-partner-demo]').forEach(function(form){
+    form.addEventListener('submit', function(ev){
       ev.preventDefault();
-      const ok = form.querySelector('.form-ok');
-      if(ok){ ok.hidden=false; }
-      form.querySelectorAll('input,textarea,select,button[type=submit]').forEach(x=>{
-        if(x.type==='submit') x.disabled=true; 
+      var ok = form.querySelector('.form-ok');
+      if(ok) ok.hidden = false;
+      form.querySelectorAll('input,textarea,select,button[type=submit]').forEach(function(x){
+        if(x.type==='submit') x.disabled = true;
       });
     });
   });
